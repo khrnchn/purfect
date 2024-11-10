@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Encore + Next.js",
+  title: "purfect adoptions",
 };
 
 const navLinks = [
@@ -24,32 +24,10 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.className} text-black bg-white`}>
-        <header>
-          <nav className="h-navBar bg-black text-white flex items-center justify-between p-5">
-            <div className="flex items-center">
-              {navLinks.map(({ href, label }) => (
-                <Link className="mr-8 text-inherit hover:underline" key={href} href={href}>
-                  {label}
-                </Link>
-              ))}
-            </div>
-
-            {isLoggedIn ? (
-              <form action="/auth/logout" method="post">
-                <button type="submit">Logout</button>
-              </form>
-            ) : (
-              <form className="space-x-2" action="/auth/login" method="post">
-                <input type="text" placeholder="Email" name="email" />
-                <input type="password" placeholder="Password" name="password" />
-                <button type="submit">Login</button>
-              </form>
-            )}
-          </nav>
-        </header>
-
-        <main className="flex w-full p-10">{children}</main>
+      <body className={`${inter.className}`}>
+        <div className="min-h-screen bg-orange-50 flex flex-col relative">
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -1,42 +1,97 @@
-import {FC} from "react";
+'use client'
 
-export default async function Home() {
+import { CatFilter } from "@/components/cat-filter"
+import { CatGrid } from "@/components/cat-grid"
+import { Header } from "@/components/layout/header"
+import { Cat, FilterSettings } from "@/types"
+import { useState } from "react"
+
+export default function CatAdoptionDirectory() {
+  const [cats, setCats] = useState<Cat[]>([
+    {
+      id: 1,
+      name: "Whiskers",
+      age: 3,
+      image: "/vercel.svg?height=200&width=200",
+      breed: "Siamese",
+      location: "New York",
+      description: "Playful and loving Siamese cat looking for a forever home.",
+      starred: false
+    },
+    {
+      id: 2,
+      name: "Mittens",
+      age: 2,
+      image: "/vercel.svg?height=200&width=200",
+      breed: "Tabby",
+      location: "Los Angeles",
+      description: "Curious and adventurous tabby cat ready for a new home.",
+      starred: false
+    },
+    {
+      id: 3,
+      name: "Shadow",
+      age: 4,
+      image: "/vercel.svg?height=200&width=200",
+      breed: "Maine Coon",
+      location: "Chicago",
+      description: "Gentle giant looking for a loving family.",
+      starred: false
+    },
+    {
+      id: 4,
+      name: "Bella",
+      age: 1,
+      image: "/vercel.svg?height=200&width=200",
+      breed: "Bengal",
+      location: "Miami",
+      description: "Playful and energetic Bengal cat seeking a fun home.",
+      starred: false
+    },
+    {
+      id: 5,
+      name: "Oliver",
+      age: 5,
+      image: "/vercel.svg?height=200&width=200",
+      breed: "Persian",
+      location: "Seattle",
+      description: "Calm and affectionate Persian cat looking for a quiet home.",
+      starred: false
+    },
+    // ... other cats
+  ])
+
+  const [filters, setFilters] = useState<FilterSettings>({
+    breed: "",
+    maxAge: 10,
+    onlyStarred: false
+  })
+
+  const toggleStar = (id: number) => {
+    setCats(cats.map(cat =>
+      cat.id === id ? { ...cat, starred: !cat.starred } : cat
+    ))
+  }
+
+  const filteredCats = cats.filter(cat =>
+    (filters.breed === "" || cat.breed.toLowerCase().includes(filters.breed.toLowerCase())) &&
+    cat.age <= filters.maxAge &&
+    (!filters.onlyStarred || cat.starred)
+  )
+
   return (
-    <section className="flex w-full flex-col justify-center items-center">
-      <h1 className="text-5xl mb-20">Next.js + Encore Web App Starter</h1>
-
-      <div className="grid grid-cols-4 max-w-6xl">
-        <Card
-          href="https://encore.dev/docs"
-          heading="Encore Docs"
-          desc="Learn how to build cloud backends using the Encore´s Development Platform."
-        />
-
-        <Card
-          href="https://nextjs.org/docs"
-          heading="Next.js Docs"
-          desc="Find in-depth information about Next.js features and API."
-        />
-
-        <Card
-          href="http://localhost:9400"
-          heading="Local Dev Dash"
-          desc="Access Encore's local development dashboard when running Encore locally."
-        />
-
-        <Card
-          href="https://encore.dev/docs/deploy/deploying"
-          heading="Deploy"
-          desc="Learn how to deploy your Encore application."
-        />
+    <>
+      <div className="absolute inset-0 z-0 opacity-5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" className="absolute inset-0 w-full h-full">
+          <path d="M30 0c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10S35.5 0 30 0zM10 20c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm40 0c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zM30 40c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10z" fill="#000" />
+        </svg>
       </div>
-    </section>
-  );
-}
 
-const Card: FC<{ href: string; heading: string; desc: string }> = ({href, heading, desc}) => {
-  return <a href={href} className="group p-4 bg-white bg-opacity-0 transition hover:bg-black hover:bg-opacity-5" target="_blank">
-    <h2 className="mb-2 font-semibold">{heading} <span className="inline-block transition group-hover:translate-x-2">-&gt;</span></h2>
-    <p className="opacity-60">{desc}</p>
-  </a>
+      <Header />
+      <div className="flex flex-col md:flex-row flex-grow relative z-10">
+        <CatFilter filters={filters} onFilterChange={setFilters} />
+        <CatGrid cats={filteredCats} onStarToggle={toggleStar} />
+      </div>
+    </>
+  )
 }
