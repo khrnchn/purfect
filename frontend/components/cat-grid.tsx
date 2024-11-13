@@ -10,12 +10,19 @@ interface CatGridProps {
 
 export function CatGrid({ cats, onStarToggle }: CatGridProps) {
     return (
-        <main className="flex-grow p-6 overflow-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {cats.map((cat) => (
-                    <CatCard key={cat.id} cat={cat} onStarToggle={onStarToggle} />
-                ))}
-            </div>
-        </main>
+        cats && cats.length > 0 ?
+            <main className="flex- p-6 overflow-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {cats.map((cat) => (
+                        <CatCard key={cat.id} cat={cat} onStarToggle={onStarToggle} />
+                    ))}
+                </div>
+            </main>
+            :
+            <main className="flex-grow p-6 overflow-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    Meow! There are no cats to display.
+                </div>
+            </main>
     )
 }

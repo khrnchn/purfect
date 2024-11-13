@@ -81,12 +81,6 @@ export default function CatAdoptionDirectory() {
 
   return (
     <>
-      <div className="absolute inset-0 z-0 opacity-5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" className="absolute inset-0 w-full h-full">
-          <path d="M30 0c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10S35.5 0 30 0zM10 20c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm40 0c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zM30 40c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10z" fill="#000" />
-        </svg>
-      </div>
-
       <Header />
       <div className="flex flex-col md:flex-row flex-grow relative z-10">
         <CatFilter filters={filters} onFilterChange={setFilters} />

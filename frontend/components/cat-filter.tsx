@@ -15,7 +15,7 @@ interface CatFilterProps {
 
 export function CatFilter({ filters, onFilterChange }: CatFilterProps) {
   return (
-    <aside className="w-full md:w-2/4 bg-orange-100 p-6 space-y-6">
+    <aside className="w-full md:w-1/4 bg-orange-100 p-6 space-y-6">
       <Card className="bg-white shadow-lg">
         <CardHeader>
           <CardTitle className="text-xl font-semibold text-orange-700 flex items-center">
